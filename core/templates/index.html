@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>List</title>
+</head>
+<body>
+
+    <nav style="background-color: #B38B0D;" class="navbar navbar-expand-lg navbar-light ">
+
+        <a style="color: white;" class="navbar-brand" href="#">Все заметки</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+    </nav>
+
+    <div class="container">
+        <h1 class="title">Все заметки</h1>
+        
+        {% if todos %}
+            <ul style="list-style: none; padding: 0;">
+
+                <!-- TEACHER MURAD IF YOU SEE IT I DID AS YOU SAID I USED GOOGLE SEARCH IT ACTUALLY TOOK ME A WHILE TO GET THIS DONE. THANKS THAT GOOGLE EXISTS, I CAN'T WRITE THIS CODE WITHOUT IT, I LOVE YOU GOOGLE <3 -->
+
+                                {% for todo in todos %}
+                                    <li style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease; {% if todo.completed %}opacity: 0.6;{% endif %}">
+                                        <div style="flex: 1;">
+                                            <h4 style="margin: 0 0 5px 0; color: #B38B0D; text-decoration: {% if todo.completed %}line-through{% endif %};">{{ todo.title }}</h4>
+                                            <p style="margin: 0; color: #666; font-size: 14px; text-decoration: {% if todo.completed %}line-through{% endif %};">{{ todo.note }}</p>
+                                            <small style="color: #999; font-size: 12px; margin-top: 5px; display: block;">{{ todo.created_at|date:"d.m.Y H:i" }}</small>
+                                        </div>
+                                        <div style="display: flex; gap: 10px; margin-left: 15px;">
+                                            <a href="{% url 'toggle_complete' todo.pk %}">
+                                                <button style="background: {% if todo.completed %}linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%){% else %}linear-gradient(135deg, #667eea 0%, #764ba2 100%){% endif %}; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 18px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                                                    {% if todo.completed %}✓{% else %}○{% endif %}
+                                                </button>
+                                            </a>
+                                            <a href="{% url 'delete_todo' todo.pk %}" onclick="return confirm('Delete?')">
+                                                <button style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 18px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">✕</button>
+                                            </a>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+
+                    <!-- ISHOWSPEED GOOGLE, THANKS FOR THIS CODE, I LOVE YOU <3 -->
+
+            </ul>
+        {% else %}
+            <p style="text-align: center; color: #999; font-size: 18px; margin-top: 40px;">No tasks. Click + to add!</p>
+        {% endif %}
+    </div>
+    <a href="{% url 'add' %}"> <button class="fab" title="Add"><i class="fas fa-plus"></i></button></a>
+   
+   
+    
+
+
+
+
+
+
+
+
+    
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
+</body>
+</html>
